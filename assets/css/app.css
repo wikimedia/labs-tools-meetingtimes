@@ -1,0 +1,18 @@
+header { background-color:var(--background-color-tabs); padding:1em }
+
+a { text-decoration:none }
+a:hover { text-decoration:underline }
+
+form { width:50em; margin:auto }
+form .date { font-size:larger }
+
+table { text-align:center; margin:auto }
+table thead th { padding:0.2em 2em; background-color:var(--background-color-primary); vertical-align:top }
+table thead th .tzs { font-weight:normal }
+
+table td.weekday { text-align:right }
+table td.time { text-align:left }
+
+footer { font-size:smaller; text-align:right; margin-right:1em }
+footer ul { list-style-type:none }
+footer li { display:inline-block; margin-left:2em }

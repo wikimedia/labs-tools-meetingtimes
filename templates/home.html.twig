@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=yes, width=device-width">
+        <title>{{ msg('meeting-times') }} :: {{ date.format('Y-m-d') }}</title>
+        {{ encore_entry_link_tags('app') }}
+    </head>
+    <body>
+    <header>
+        <h1><a href="{{ path('home') }}">{{ msg('meeting-times') }}</a></h1>
+    </header>
+    <main>
+        <form action="{{ path('home') }}" method="get">
+            <p class="date">
+                <label for="date">{{ msg('date-label') }}</label>
+                <input id="date" type="date" name="date" value="{{ date.format('Y-m-d') }}" />
+            </p>
+            {% for tz in tzs %}
+            <p>
+                <label for="tz-{{ loop.index }}">Timezone:</label>
+                <input id="tz-{{ loop.index }}" type="text" name="tzs[]" value="{{ tz.name }}" />
+            </p>
+            {% endfor %}
+            <p>
+                <input type="submit" value="Go" />
+            </p>
+        </form>
+
+        {% set dst = '(<abbr title="'~msg('dst-title')~'">'~msg('dst')~'</abbr>)' %}
+
+        {% if tzs %}
+            <table>
+                <thead>
+                    <tr>
+                        {% for tz in tzs_data %}
+                            <th colspan="2">
+                                {{ tz.tz.name }}<br />
+                                <span class="tzs">
+                                    {% for tran in tz.transitions %}
+                                        <abbr title="{{ msg('timezone-abbr') }}">{{ tran.abbr }}</abbr>
+                                        =
+                                        {{ tran.offset_formatted }}
+                                        {% if tran.isdst %}{{ dst|raw }}{% endif %}
+                                        {% if loop.index != loop.length %}<br />{% endif %}
+                                    {% endfor %}
+                                </span>
+                            </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                {% for hour,tzs in times %}
+                    <tr>
+                        {% for tz_name,t in tzs %}
+                            <td class="weekday">{{ t.weekday }}</td>
+                            <td class="time">
+                                {{ t.time }}
+                                {% if t.show_dst %}{{ dst|raw }}{% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </main>
+    <footer>
+        <ul>
+            <li><a href="https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?projects=tool-meetingtimes">{{ msg('report-issue') }}</a></li>
+            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="license">{{ msg( 'licenced-under' ) }}</a></li>
+            <li><a href="https://gerrit.wikimedia.org/r/plugins/gitiles/labs/tools/meetingtimes/">{{ msg('view-source') }}</a></li>
+        </ul>
+    </footer>
+    {{ encore_entry_script_tags('app') }}
+    </body>
+</html>

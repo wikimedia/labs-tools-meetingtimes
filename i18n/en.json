@@ -1,0 +1,13 @@
+{
+  "meeting-times": "Meeting times",
+
+  "date-label": "Date (UTC)",
+
+  "dst": "DST",
+  "dst-title": "Daylight Saving Time",
+  "timezone-abbr": "Timezone abbreviation (if any standard one exists)",
+
+  "report-issue": "Report an issue",
+  "view-source": "View the source code",
+  "licenced-under": "Licenced under GPL 3.0 or later"
+}

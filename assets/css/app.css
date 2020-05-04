@@ -1,18 +1,69 @@
-header { background-color:var(--background-color-tabs); padding:1em }
+body {
+	font-family: var( --font-family-system-sans );
+}
 
-a { text-decoration:none }
-a:hover { text-decoration:underline }
+header {
+	background-color: var( --background-color-tabs );
+	padding: 1em;
+}
 
-form { width:50em; margin:auto }
-form .date { font-size:larger }
+header h1 {
+	margin: 0;
+}
 
-table { text-align:center; margin:auto }
-table thead th { padding:0.2em 2em; background-color:var(--background-color-primary); vertical-align:top }
-table thead th .tzs { font-weight:normal }
+a {
+	color: var( --color-primary );
+	text-decoration: none;
+}
 
-table td.weekday { text-align:right }
-table td.time { text-align:left }
+a:hover {
+	color: var( --color-primary--hover );
+	text-decoration: underline;
+}
 
-footer { font-size:smaller; text-align:right; margin-right:1em }
-footer ul { list-style-type:none }
-footer li { display:inline-block; margin-left:2em }
+form {
+	width: 50em;
+	margin: auto;
+}
+
+form .date {
+	font-size: larger;
+}
+
+table {
+	text-align: center;
+	margin: auto;
+}
+
+table thead th {
+	padding: 0.2em 2em;
+	background-color: var( --background-color-primary );
+	vertical-align: top;
+}
+
+table thead th .tzs {
+	font-weight: normal;
+}
+
+table td.weekday {
+	text-align: right;
+}
+
+table td.time {
+	text-align: left;
+}
+
+footer {
+	font-size: smaller;
+	text-align: right;
+	margin-right: 1em;
+}
+
+footer ul {
+	list-style-type: none;
+}
+
+footer li {
+	display: inline-block;
+	margin-left: 2em;
+}

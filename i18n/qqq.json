@@ -1,0 +1,14 @@
+{
+  "@metadata": {},
+  "meeting-times": "Tool name.",
+
+  "date-label": "Form input label for the date.",
+
+  "dst": "Daylight Saving Time abbreviation.",
+  "dst-title": "Daylight Saving Time tooltip.",
+  "timezone-abbr": "Timezone abbreviation tooltip.",
+
+  "report-issue": "Link text in footer.",
+  "view-source": "Link text in footer.",
+  "licenced-under": "Link text in footer."
+}

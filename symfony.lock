@@ -23,8 +23,23 @@
     "doctrine/lexer": {
         "version": "1.2.0"
     },
+    "ergebnis/composer-normalize": {
+        "version": "2.5.1"
+    },
+    "ergebnis/json-normalizer": {
+        "version": "0.12.0"
+    },
+    "ergebnis/json-printer": {
+        "version": "3.0.2"
+    },
+    "justinrainbow/json-schema": {
+        "version": "5.2.9"
+    },
     "krinkle/intuition": {
         "version": "v1.2.0"
+    },
+    "localheinz/diff": {
+        "version": "1.0.1"
     },
     "mediawiki/mediawiki-codesniffer": {
         "version": "v30.0.0"

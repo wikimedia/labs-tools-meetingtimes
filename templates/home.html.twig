@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=yes, width=device-width">
-        <title>{{ msg('meeting-times') }} :: {{ date.format('Y-m-d') }}</title>
+        <title>{{ msg('meeting-times') }} :: {{ mt.startTime.format('Y-m-d') }}</title>
         {{ encore_entry_link_tags('app') }}
     </head>
     <body>
@@ -12,32 +12,46 @@
     </header>
     <main>
         <form action="{{ path('home') }}" method="get">
-            <p class="date">
-                <label for="date">{{ msg('date-label') }}</label>
-                <input id="date" type="date" name="date" value="{{ date.format('Y-m-d') }}" />
-            </p>
-            {% for tz in tzs %}
+            <fieldset>
+                <legend>{{ msg('dates-label') }}</legend>
+                <p class="startdate">
+                    <label for="startdate">{{ msg('startdate-label') }}</label>
+                    <input id="startdate" type="date" name="startdate" value="{{ mt.starttime.format( 'Y-m-d' ) }}" />
+                    <label for="starttime">{{ msg('starttime-label') }}</label>
+                    <input id="starttime" type="time" name="starttime" value="{{ mt.starttime.format( 'H:i' ) }}" />
+                </p>
+                <p class="enddate">
+                    <label for="enddate">{{ msg('enddate-label') }}</label>
+                    <input id="enddate" type="date" name="enddate" value="{{ mt.endtime.format('Y-m-d') }}" />
+                    <label for="endtime">{{ msg('endtime-label') }}</label>
+                    <input id="endtime" type="time" name="endtime" value="{{ mt.endtime.format( 'H:i' ) }}" />
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>{{ msg('timezones-label') }}</legend>
+                {% for idx,tz in mt.timezones %}
+                <p>
+                    <label for="tz-{{ idx }}">{{ msg('timezone-label') }}</label>
+                    <input id="tz-{{ idx }}" type="text" name="tzs[{{ idx }}]" value="{{ tz.name }}" />
+                </p>
+                {% endfor %}
+            </fieldset>
             <p>
-                <label for="tz-{{ loop.index }}">Timezone:</label>
-                <input id="tz-{{ loop.index }}" type="text" name="tzs[]" value="{{ tz.name }}" />
-            </p>
-            {% endfor %}
-            <p>
-                <input type="submit" value="Go" />
+                <input type="submit" value="{{ msg('go') }}" />
             </p>
         </form>
 
         {% set dst = '(<abbr title="'~msg('dst-title')~'">'~msg('dst')~'</abbr>)' %}
 
-        {% if tzs %}
+        {% if mt.timeslots %}
             <table>
                 <thead>
                     <tr>
-                        {% for tz in tzs_data %}
+                        {% for tz in mt.timezones %}
                             <th colspan="2">
-                                {{ tz.tz.name }}<br />
+                                {{ tz.name }}<br />
                                 <span class="tzs">
-                                    {% for tran in tz.transitions %}
+                                    {% for tran in tz.transitions(mt.starttime, mt.endtime) %}
                                         <abbr title="{{ msg('timezone-abbr') }}">{{ tran.abbr }}</abbr>
                                         =
                                         {{ tran.offset_formatted }}
@@ -50,13 +64,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for hour,tzs in times %}
+                {% for slot in mt.timeslots %}
                     <tr>
-                        {% for tz_name,t in tzs %}
-                            <td class="weekday">{{ t.weekday }}</td>
+                        {% for tz in mt.timezones %}
+                            <td class="weekday">{{ slot.weekday( tz )|raw }}</td>
                             <td class="time">
-                                {{ t.time }}
-                                {% if t.show_dst %}{{ dst|raw }}{% endif %}
+                                {{ slot.starttime( tz ).format( 'H:i' ) }}
+                                {% if slot.hasdst( tz ) and tz.transitions(mt.starttime, mt.endtime )|length > 1 %}
+                                    {{ dst|raw }}
+                                {% endif %}
                             </td>
                         {% endfor %}
                     </tr>

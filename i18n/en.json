@@ -3,7 +3,14 @@
 
   "meeting-times": "Meeting times",
 
-  "date-label": "Date (UTC)",
+  "dates-label": "Dates (in UTC):",
+  "startdate-label": "Start date:",
+  "starttime-label": "Start time:",
+  "enddate-label": "End date:",
+  "endtime-label": "End time:",
+  "timezones-label": "Timezones to display:",
+  "timezone-label": "Timezone:",
+  "go": "Go",
 
   "dst": "DST",
   "dst-title": "Daylight Saving Time",

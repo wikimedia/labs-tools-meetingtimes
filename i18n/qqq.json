@@ -2,7 +2,14 @@
   "@metadata": {},
   "meeting-times": "Tool name.",
 
-  "date-label": "Form input label for the date.",
+  "dates-label": "Fieldset legend for the start and end dates.",
+  "startdate-label": "Form input label for the start date.",
+  "starttime-label": "Form input label for the start time.",
+  "enddate-label": "Form input label for the end date.",
+  "endtime-label": "Form input label for the end time.",
+  "timezones-label": "Fieldset legend for the list of timezone inputs.",
+  "timezone-label": "Form input label for each timezone.",
+  "go": "Main submit button",
 
   "dst": "Daylight Saving Time abbreviation.",
   "dst-title": "Daylight Saving Time tooltip.",

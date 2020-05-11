@@ -65,7 +65,8 @@
             "composer validate",
             "./bin/console lint:twig ./templates",
             "./bin/console lint:yaml ./config",
-            "phpcs -s ."
+            "phpcs -s .",
+            "./bin/phpunit"
         ]
     },
     "conflict": {

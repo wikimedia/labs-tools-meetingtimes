@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DateInterval;
 use DateTime;
 use DateTimeZone;
 
@@ -21,10 +22,12 @@ class MeetingTimes {
 
 	public function __construct() {
 		$this->addTimezone( new Timezone( 'Etc/UTC' ) );
-		$this->startTime = new DateTime();
-		$this->startTime->setTime( 0, 0, 0, 0 );
-		$this->endTime = new DateTime();
-		$this->endTime->setTime( 24, 0, 0, 0 );
+		$startTime = new DateTime();
+		$startTime->setTime( 0, 0, 0, 0 );
+		$this->setStartTime( $startTime );
+		$endTime = new DateTime();
+		$endTime->setTime( 24, 0, 0, 0 );
+		$this->setEndTime( $endTime );
 	}
 
 	/**
@@ -66,7 +69,7 @@ class MeetingTimes {
 		$timeslots = [];
 		$incrementingTime = clone $this->getStartTime();
 		$timeslot = null;
-		while ( $incrementingTime < $this->endTime ) {
+		while ( $incrementingTime < $this->getEndTime() ) {
 			$timeslot = new Timeslot( clone $incrementingTime, $timeslot );
 			$timeslots[] = $timeslot;
 			$incrementingTime->add( $timeslot->getDuration() );
@@ -93,6 +96,11 @@ class MeetingTimes {
 	 * @return DateTime
 	 */
 	public function getEndTime(): DateTime {
+		// If the end is before the start, move to 1 day after.
+		if ( !$this->endTime || $this->endTime < $this->startTime ) {
+			$this->endTime = clone $this->startTime;
+			$this->endTime->add( new DateInterval( 'P1D' ) );
+		}
 		return $this->endTime;
 	}
 

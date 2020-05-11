@@ -21,6 +21,16 @@ class MeetingTimesTest extends TestCase {
 	}
 
 	/**
+	 * @covers \App\MeetingTimes::getEndTime()
+	 */
+	public function testGetEndTime() {
+		$meetingTimes = new MeetingTimes();
+		$meetingTimes->setStartTime( new DateTime( '2020-04-05' ) );
+		$meetingTimes->setEndTime( new DateTime( '1990-04-05' ) );
+		static::assertSame( '2020-04-06', $meetingTimes->getEndTime()->format( 'Y-m-d' ) );
+	}
+
+	/**
 	 * @covers \App\MeetingTimes::getTimeslots()
 	 */
 	public function testGetTimeslots() {

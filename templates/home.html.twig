@@ -27,18 +27,19 @@
                     <input id="endtime" type="time" name="endtime" value="{{ mt.endtime.format( 'H:i' ) }}" />
                 </p>
             </fieldset>
-            <fieldset>
+            <fieldset id="tz-fieldset" data-search-url="{{ path('search') }}">
                 <legend>{{ msg('timezones-label') }}</legend>
                 {% for idx,tz in mt.timezones %}
                 <p>
                     <label for="tz-{{ idx }}">{{ msg('timezone-label') }}</label>
-                    <input id="tz-{{ idx }}" type="text" name="tzs[{{ idx }}]" value="{{ tz.name }}" />
+                    <input id="tz-{{ idx }}" class="tz-input" list="tz-datalist" type="text" name="tzs[{{ idx }}]" value="{{ tz.name }}" />
                 </p>
                 {% endfor %}
             </fieldset>
             <p>
                 <input type="submit" value="{{ msg('go') }}" />
             </p>
+            <datalist id="tz-datalist"></datalist>
         </form>
 
         {% set dst = '(<abbr title="'~msg('dst-title')~'">'~msg('dst')~'</abbr>)' %}

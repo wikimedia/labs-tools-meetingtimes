@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\MeetingTimes;
 use App\Timezone;
 use DateTime;
-use DateTimeZone;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +16,10 @@ class MainController extends AbstractController {
 	/**
 	 * @Route("/", name="home")
 	 * @param Request $request
+	 * @param MeetingTimes $meetingTimes
 	 * @return Response
 	 */
-	public function index( Request $request ) {
-		$meetingTimes = new MeetingTimes();
-
+	public function index( Request $request, MeetingTimes $meetingTimes ) {
 		$startTime = $request->get( 'startdate', date( 'Y-m-d' ) )
 			. ' ' . $request->get( 'starttime', '00:00:00' ) . 'Z';
 		$meetingTimes->setStartTime( new DateTime( $startTime ) );
@@ -40,5 +38,15 @@ class MainController extends AbstractController {
 		}
 
 		return $this->render( 'home.html.twig', [ 'mt' => $meetingTimes ] );
+	}
+
+	/**
+	 * @Route("/search", name="search")
+	 * @param Request $request
+	 * @param MeetingTimes $meetingTimes
+	 * @return Response
+	 */
+	public function search( Request $request, MeetingTimes $meetingTimes ) {
+		return $this->json( $meetingTimes->identifierSearch( $request->get( 'q' ) ) );
 	}
 }

@@ -1,25 +1,30 @@
-var Encore = require( '@symfony/webpack-encore' );
+( function () {
 
-Encore
-	.setOutputPath( 'public/build/' )
-	.setPublicPath( 'build' )
+	var Encore = require( '@symfony/webpack-encore' );
 
-	.addEntry( 'app', [
-		'./node_modules/normalize.css/normalize.css',
-		'./node_modules/wikimedia-ui-base/wikimedia-ui-base.css',
-		'./assets/css/app.css'
-	] )
+	Encore
+		.setOutputPath( 'public/build/' )
+		.setPublicPath( 'build' )
 
-	.splitEntryChunks()
-	.enableSingleRuntimeChunk()
-	.cleanupOutputBeforeBuild()
-	.enableSourceMaps( !Encore.isProduction() )
-	.enableVersioning( Encore.isProduction() )
+		.addEntry( 'app', [
+			'./node_modules/normalize.css/normalize.css',
+			'./node_modules/wikimedia-ui-base/wikimedia-ui-base.css',
+			'./assets/css/app.css',
+			'./assets/js/app.js'
+		] )
 
-	// enables @babel/preset-env polyfills
-	.configureBabelPresetEnv( function ( config ) {
-		config.useBuiltIns = 'usage';
-		config.corejs = 3;
-	} );
+		.splitEntryChunks()
+		.enableSingleRuntimeChunk()
+		.cleanupOutputBeforeBuild()
+		.enableSourceMaps( !Encore.isProduction() )
+		.enableVersioning( Encore.isProduction() )
 
-module.exports = Encore.getWebpackConfig();
+		// enables @babel/preset-env polyfills
+		.configureBabelPresetEnv( function ( config ) {
+			config.useBuiltIns = 'usage';
+			config.corejs = 3;
+		} );
+
+	module.exports = Encore.getWebpackConfig();
+
+}() );

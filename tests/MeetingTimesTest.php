@@ -71,4 +71,38 @@ class MeetingTimesTest extends TestCase {
 			[ '2020-05-06 01:00 ', '2020-05-06 09:00 ' ],
 		], $rows );
 	}
+
+	/**
+	 * Given a user-supplied string, it is possible to search for a timezone identifier.
+	 * @dataProvider provideIdentifierSearch()
+	 * @covers MeetingTimes::identifierSearch()
+	 */
+	public function testIdentifierSearch( $search, $results ) {
+		$meetingTimes = new MeetingTimes();
+		static::assertSame( $results, $meetingTimes->identifierSearch( $search ) );
+	}
+
+	/**
+	 * @return mixed[]
+	 */
+	public function provideIdentifierSearch() {
+		return [
+			'Perth' => [
+				'Perth',
+				[ 'Australia/Perth' ]
+			],
+			'Abbreviation 1' => [
+				'AWST',
+				[ 'Australia/Perth (AWST)' ]
+			],
+			'Abbreviation 2' => [
+				'NZDT',
+				[ 'Antarctica/McMurdo (NZDT)', 'Pacific/Auckland (NZDT)' ]
+			],
+			'Multiple' => [
+				'angu',
+				[ 'Africa/Bangui', 'America/Anguilla' ]
+			],
+		];
+	}
 }

@@ -38,6 +38,30 @@ class MeetingTimes {
 	}
 
 	/**
+	 * @param string $searchString
+	 * @return array
+	 */
+	public function identifierSearch( string $searchString ): array {
+		$out = [];
+		foreach ( $this->getIdentifiers() as $identifier ) {
+			// Check the identifier for the string.
+			if ( stripos( $identifier, $searchString ) !== false ) {
+				$out[] = $identifier;
+			}
+			// Check all TZ abbreviations for the string.
+			$tz = new DateTimeZone( $identifier );
+			foreach ( $tz->getTransitions() as $transition ) {
+				if ( stripos( $transition['abbr'], $searchString ) !== false ) {
+					$out[] = $identifier . ' (' . $transition['abbr'] . ')';
+				}
+			}
+		}
+		// Make sure array keys are numeric and sequential,
+		// so they're json-decoded as an array not an object.
+		return array_values( array_unique( $out ) );
+	}
+
+	/**
 	 * @return Timezone[]
 	 */
 	public function getTimezones(): array {

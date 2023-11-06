@@ -8,7 +8,7 @@
 
 		.addEntry( 'app', [
 			'./node_modules/normalize.css/normalize.css',
-			'./node_modules/wikimedia-ui-base/wikimedia-ui-base.css',
+			'./node_modules/@wikimedia/codex-design-tokens/theme-wikimedia-ui.css',
 			'./assets/css/app.css',
 			'./assets/js/app.js'
 		] )

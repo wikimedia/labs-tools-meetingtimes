@@ -3,7 +3,7 @@ body {
 }
 
 header {
-	background-color: var( --background-color-tabs );
+	background-color: var( --background-color-notice-subtle );
 	padding: 1em;
 }
 
@@ -12,12 +12,12 @@ header h1 {
 }
 
 a {
-	color: var( --color-primary );
+	color: var( --color-progressive );
 	text-decoration: none;
 }
 
 a:hover {
-	color: var( --color-primary--hover );
+	color: var( --color-progressive--hover );
 	text-decoration: underline;
 }
 
@@ -37,7 +37,7 @@ table {
 
 table thead th {
 	padding: 0.2em 2em;
-	background-color: var( --background-color-primary );
+	background-color: var( --background-color-progressive-subtle );
 	vertical-align: top;
 }
 

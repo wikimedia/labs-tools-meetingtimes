@@ -1,7 +1,7 @@
 {
     "dependencies": {
-        "normalize.css": "^8.0.1",
-        "wikimedia-ui-base": "^0.15.0"
+        "@wikimedia/codex-design-tokens": "^1.0.0",
+        "normalize.css": "^8.0.1"
     },
     "devDependencies": {
         "@symfony/webpack-encore": "^0.29.0",

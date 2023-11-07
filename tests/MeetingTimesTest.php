@@ -15,7 +15,7 @@ class MeetingTimesTest extends TestCase {
 	 */
 	public function testDefaults() {
 		$meetingTimes = new MeetingTimes();
-		static::assertSame( $meetingTimes->getStartTime()->format( 'H:i:s' ), '00:00:00' );
+		static::assertSame( '00:00:00', $meetingTimes->getStartTime()->format( 'H:i:s' ) );
 		static::assertCount( 4, $meetingTimes->getTimezones() );
 		static::assertSame( 'Etc/UTC', $meetingTimes->getTimezones()['Etc/UTC']->getName() );
 	}
